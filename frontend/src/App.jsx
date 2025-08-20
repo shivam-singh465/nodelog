@@ -1,5 +1,5 @@
 import './App.css'
-import { Home } from "../src/components/index.js"
+import { Home, Login } from "../src/components/index.js"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { StrictMode } from 'react'
 
@@ -11,6 +11,10 @@ function App() {
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
     },
   ])
 
