@@ -1,58 +1,64 @@
 import mongoose from "mongoose";
 import User from "../models/userModels.js";
+import bcrypt from "bcrypt"
 
 
 
+const createUser = async (req, res) => {
 
-const createUser =  (req, res) => {
-    console.log(req.body)
-
-    const {name ,email,password} = req.body;
+    const regMail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const { name, email, password } = req.body;
     try {
-        if(!name && !email && !password){
-            console.log("somthing went wrong")
+        if (!name || !email || !password) {
             return res.status(400).json({
-                message : "Please fill all fields",
-                success:false
+                message: "Please fill all fields",
+                success: false
+            })
+        }
+        if (!email.match(regMail)) {
+            console.log("this is not a valid mail ")
+            return res.status(400).json({
+                message: "enter the valid mail",
+                success: false
             })
         }
 
-        return res.status(200).json({
-            message:"user creadted successfully",
-            success : false
+        const existUser = await User.findOne({ email })
+        if (existUser) {
+            return res.status(400).json({
+                message: "user already exist please use another email",
+                success: false
+            })
+        }
+        const hashedPassword = await bcrypt.hash(password, 10)
+        console.log(hashedPassword)
+
+
+        const newUser = await User.create({
+            name,
+            email,
+            password: hashedPassword,
         })
 
+        if (newUser) {
+            return res.status(201).json({
+                message: "User creadted successfully",
+                success: true,
+                user: newUser
+            })
 
-
-
+        }
     } catch (error) {
         console.log(error);
         return res.status(500).json({
             message: "internal server error",
             success: false,
-            message: error.message,
+            testingError: error.message,
         })
     }
 
 }
 
-// const userLogin = async (req, res) => {
-
-//     try {
-        
 
 
-
-
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({
-//             message: "internal server error",
-//             success: false,
-//             message: error.message,
-//         })
-//     }
-
-// }
-
-export {createUser}
+export { createUser }

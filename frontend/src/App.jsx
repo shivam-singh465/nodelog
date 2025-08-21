@@ -1,5 +1,5 @@
 import './App.css'
-import { Home, Login } from "../src/components/index.js"
+import { Home, Login ,Signup} from "../src/components/index.js"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { StrictMode } from 'react'
 
@@ -15,6 +15,10 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
     },
   ])
 
