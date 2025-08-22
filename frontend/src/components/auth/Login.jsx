@@ -12,18 +12,18 @@ function Login() {
   const navigate = useNavigate()
 
 
-  const happy = () => {
-    // Example API call (testing purpose)
-    axios.post(`${USER_API_END_POINT}/user/register`, {
-      name: "Shivam",
-      email: "shivam00edu@gmail.com",
-      password: "hello112234"
-    })
-      .then(res => {
-        console.log(res.data, "helloooo");
-      })
-      .catch(err => console.error(err));
-  }
+  // const happy = () => {
+  //   // Example API call (testing purpose)
+  //   axios.post(`${USER_API_END_POINT}/user/register`, {
+  //     name: "Shivam",
+  //     email: "shivam00edu@gmail.com",
+  //     password: "hello112234"
+  //   })
+  //     .then(res => {
+  //       console.log(res.data, "helloooo");
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   return (
     <>
