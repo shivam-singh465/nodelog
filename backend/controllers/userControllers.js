@@ -73,8 +73,9 @@ const LoginUser = async (req, res) => {
         // console.log(email , typeof(password))
         if (!email || !password) {
             return res.status(400).json({
-                message: "Please fill all fields",
-                success: false
+                message: "Please fill all fields in login form",
+                success: false,
+                yourDAta : req.body
             })
         }
         if (!email.match(regMail)) {
@@ -141,7 +142,7 @@ const LoginUser = async (req, res) => {
 const LogoutUser = async(req, res) => {
 
 
-    
+
 }
 
 

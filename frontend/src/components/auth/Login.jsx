@@ -11,19 +11,27 @@ import { FaGoogle } from 'react-icons/fa';
 function Login() {
   const navigate = useNavigate()
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const formData = {
+      email: e.target.email.value,
+      password: e.target.password.value
+    }
 
-  // const happy = () => {
-  //   // Example API call (testing purpose)
-  //   axios.post(`${USER_API_END_POINT}/user/register`, {
-  //     name: "Shivam",
-  //     email: "shivam00edu@gmail.com",
-  //     password: "hello112234"
-  //   })
-  //     .then(res => {
-  //       console.log(res.data, "helloooo");
-  //     })
-  //     .catch(err => console.error(err));
-  // }
+    const res = await axios.post(`${USER_API_END_POINT}/user/login`, formData, { withCredentials: true })
+
+    if(res.status != 201){
+      console.log(res)
+    }
+
+
+    console.log(res.status)
+    console.log(res.data.message)
+    console.log(res.data.user)
+    navigate("/")
+  }
+
+
 
   return (
     <>
@@ -52,7 +60,7 @@ function Login() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              <form>
+              <form onSubmit={submitHandler}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="email" className={"text-[#ffffff]"}>Email</Label>
@@ -61,7 +69,7 @@ function Login() {
                       type="email"
                       placeholder="m@example.com"
                       required
-                      className={"text-white placeholder:text-white"}
+                      className={"text-white placeholder:text-[#ffffff3d]"}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -76,17 +84,17 @@ function Login() {
                     </div>
                     <Input id="password" type="password" required className={"text-white placeholder:text-white"} />
                   </div>
-              <Button type="submit" className="w-full bg-[#0000004d] hover:bg-[#ffffff4d] border border-[#ffffffa1]">
-                Login
-              </Button>
+                  <Button type="submit" className="w-full bg-[#000000] hover:bg-[#ffffff4d] border border-[#ffffffa1]">
+                    Login
+                  </Button>
                 </div>
               </form>
             </CardContent>
-            <div className='flex items-center justify-center gap-1'><hr className='w-2/5'/><div className='text-white '>or</div> <hr className='w-2/5' /></div>
+            <div className='flex items-center justify-center gap-1'><hr className='w-2/5' /><div className='text-white '>or</div> <hr className='w-2/5' /></div>
 
             <CardFooter className="flex-col gap-2">
               <Button variant="outline" className="w-full">
-                Login with Google <FaGoogle/>
+                Login with Google <FaGoogle />
               </Button>
             </CardFooter>
           </Card>
